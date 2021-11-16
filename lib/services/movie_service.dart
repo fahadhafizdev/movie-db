@@ -67,4 +67,25 @@ class MovieService {
       throw Exception('data movie gagal');
     }
   }
+
+  Future<List<MovieModel>> getNowPlayingMovieList() async {
+    var url =
+        "https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US";
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<MovieModel> movie = data
+          .map<MovieModel>(
+            (item) => MovieModel.fromJson(item),
+          )
+          .toList();
+      return movie;
+    } else {
+      throw Exception('data movie gagal');
+    }
+  }
 }
