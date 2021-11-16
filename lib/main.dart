@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/pages/home/tv_page.dart';
 import 'package:moviez_streaming_dark/pages/splash_page.dart';
 import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => SplashPage(),
           '/home': (context) => HomePage(),
+          '/tv': (context) => TvPage(),
         },
       ),
     );
