@@ -4,6 +4,7 @@ import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/tv_airingtoday_provider.dart';
 import 'package:moviez_streaming_dark/providers/upcoming_movie_provider.dart';
 import 'pages/home/home_page.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoryMenuProvider()),
         ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
         ChangeNotifierProvider(create: (context) => UpComingMovieProvider()),
+        ChangeNotifierProvider(create: (context) => TvAiringTodayProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
