@@ -13,7 +13,8 @@ class TvTile extends StatelessWidget {
     int rating = (tv.voteAverage).round();
 
     return Container(
-      margin: EdgeInsets.only(bottom: 30),
+      width: 300,
+      margin: EdgeInsets.only(left: defaultMargin),
       child: Row(
         children: [
           Container(

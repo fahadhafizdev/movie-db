@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/providers/tv_airingtoday_provider.dart';
+import 'package:moviez_streaming_dark/providers/tv_ontheair_provider.dart';
+import 'package:moviez_streaming_dark/providers/tv_popular_provider.dart';
+import 'package:moviez_streaming_dark/providers/tv_toprated_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
+import 'package:moviez_streaming_dark/widgets/movie_tile.dart';
 import 'package:moviez_streaming_dark/widgets/tv_card.dart';
+import 'package:moviez_streaming_dark/widgets/tv_tile.dart';
 import 'package:provider/provider.dart';
 
 class TvPage extends StatelessWidget {
@@ -11,6 +16,12 @@ class TvPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TvAiringTodayProvider tvAiringTodayProvider =
         Provider.of<TvAiringTodayProvider>(context);
+    TvTopRatedProvider tvTopRatedProvider =
+        Provider.of<TvTopRatedProvider>(context);
+    TvPopularProvider tvPopularProvider =
+        Provider.of<TvPopularProvider>(context);
+    TvOnTheAirProvider tvOnTheAirProvider =
+        Provider.of<TvOnTheAirProvider>(context);
 
     Widget buildTitle() {
       return Container(
@@ -78,15 +89,15 @@ class TvPage extends StatelessWidget {
             );
     }
 
-    Widget buildCarousel() {
+    Widget buildCarouselTopRated() {
       return Container(
         margin: EdgeInsets.only(top: 30),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tvAiringTodayProvider.tv.isEmpty
+            children: tvTopRatedProvider.tv.isEmpty
                 ? [SizedBox()]
-                : tvAiringTodayProvider.tv.map((item) {
+                : tvTopRatedProvider.tv.map((item) {
                     return item.backDropPath != null
                         ? TvCard(tv: item)
                         : SizedBox();
@@ -96,17 +107,94 @@ class TvPage extends StatelessWidget {
       );
     }
 
-    Widget buildList() {
+    Widget listItemPopular() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
-          left: defaultMargin,
         ),
-        child: Text(
-          'From Disney',
-          style: whiteTextStyle.copyWith(
-            fontSize: 24,
-            fontWeight: black,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: tvPopularProvider.tv.isEmpty
+                ? [
+                    Text(
+                      'Please Check Your Internet Connection',
+                      textAlign: TextAlign.center,
+                      style: whiteTextStyle.copyWith(
+                        fontWeight: medium,
+                        fontSize: 20,
+                      ),
+                    )
+                  ]
+                : tvPopularProvider.tv
+                    .map(
+                      (e) => TvTile(
+                        tv: e,
+                      ),
+                    )
+                    .toList(),
+          ),
+        ),
+      );
+    }
+
+    Widget listItemOnTheAir() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: tvOnTheAirProvider.tv.isEmpty
+                ? [
+                    Text(
+                      'Please Check Your Internet Connection',
+                      textAlign: TextAlign.center,
+                      style: whiteTextStyle.copyWith(
+                        fontWeight: medium,
+                        fontSize: 20,
+                      ),
+                    )
+                  ]
+                : tvOnTheAirProvider.tv
+                    .map(
+                      (e) => TvTile(
+                        tv: e,
+                      ),
+                    )
+                    .toList(),
+          ),
+        ),
+      );
+    }
+
+    Widget listAiringToday() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: tvAiringTodayProvider.tv.isEmpty
+                ? [
+                    Text(
+                      'Please Check Your Internet Connection',
+                      textAlign: TextAlign.center,
+                      style: whiteTextStyle.copyWith(
+                        fontWeight: medium,
+                        fontSize: 20,
+                      ),
+                    )
+                  ]
+                : tvAiringTodayProvider.tv
+                    .map(
+                      (e) => TvTile(
+                        tv: e,
+                      ),
+                    )
+                    .toList(),
           ),
         ),
       );
@@ -118,8 +206,14 @@ class TvPage extends StatelessWidget {
         children: [
           buildTitle(),
           buildSubTitle('Top Rated TV Shows'),
-          buildCarousel(),
-          buildList(),
+          buildCarouselTopRated(),
+          buildSubTitle('Popular TV'),
+          listItemPopular(),
+          buildSubTitle('On The Air TV'),
+          listItemOnTheAir(),
+          buildSubTitle('Airing Today TV'),
+          listAiringToday(),
+          SizedBox(height: 100),
         ],
       ),
     );

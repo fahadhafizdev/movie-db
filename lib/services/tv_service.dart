@@ -7,7 +7,7 @@ class TvService {
 
   Future<List<TvModel>> getTvAiringToday() async {
     var url =
-        'https://api.themoviedb.org/3/tv/airing_today?api_key=${key}&language=en-US';
+        'https://api.themoviedb.org/3/tv/airing_today?api_key=${key}&language=en-US&page=2';
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
@@ -45,7 +45,7 @@ class TvService {
 
   Future<List<TvModel>> getTvOnTheAir() async {
     var url =
-        'https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US';
+        'https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US&page=3';
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
