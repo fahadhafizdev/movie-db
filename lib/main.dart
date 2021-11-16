@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/pages/home/main_page.dart';
 import 'package:moviez_streaming_dark/pages/home/tv_page.dart';
+import 'package:moviez_streaming_dark/pages/splash_logo_page.dart';
 import 'package:moviez_streaming_dark/pages/splash_page.dart';
 import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => SplashPage(),
+          '/': (context) => SplashLogoPage(),
+          '/splash-data': (context) => SplashPage(),
           '/home': (context) => HomePage(),
           '/tv': (context) => TvPage(),
           '/main-page': (context) => MainPage(),
