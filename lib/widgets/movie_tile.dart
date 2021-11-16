@@ -25,7 +25,7 @@ class MovieTile extends StatelessWidget {
                 fit: BoxFit.cover,
                 image: NetworkImage(
                   'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-                      movies.backDropPath,
+                      movies.posterPath,
                 ),
               ),
             ),

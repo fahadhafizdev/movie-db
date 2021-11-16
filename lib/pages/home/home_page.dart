@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/upcoming_movie_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
 import 'package:moviez_streaming_dark/widgets/category_menu_widget.dart';
 import 'package:moviez_streaming_dark/widgets/movie_card.dart';
 import 'package:moviez_streaming_dark/widgets/movie_tile.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     MovieProvider movieProvider = Provider.of<MovieProvider>(context);
     PopularMovieProvider popularMovieProvider =
         Provider.of<PopularMovieProvider>(context);
-
+    NowPlayingMovieProvider nowPlayingMovieProvider =
+        Provider.of<NowPlayingMovieProvider>(context);
+    UpComingMovieProvider upComingMovieProvider =
+        Provider.of<UpComingMovieProvider>(context);
+    CategoryMenuProvider categoryMenuProvider =
+        Provider.of<CategoryMenuProvider>(context);
     Widget buildTitle() {
       return Container(
         margin: EdgeInsets.only(left: defaultMargin, top: 20),
@@ -123,7 +136,7 @@ class HomePage extends StatelessWidget {
             );
     }
 
-    Widget listItem() {
+    Widget listItemPopular() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -152,12 +165,106 @@ class HomePage extends StatelessWidget {
                   )
                 ]
               : popularMovieProvider.movies
-                  .map((e) => MovieTile(
-                        movies: e,
-                      ))
+                  .map(
+                    (e) => MovieTile(
+                      movies: e,
+                    ),
+                  )
                   .toList(),
         ),
       );
+    }
+
+    Widget listNowPlaying() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          left: defaultMargin,
+        ),
+        child: Column(
+          children: nowPlayingMovieProvider.movies.isEmpty
+              ? [
+                  Container(
+                    height: 200,
+                    width: 300,
+                    margin: EdgeInsets.only(top: 100),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/error.png'),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Please Check Your Internet Connection',
+                    textAlign: TextAlign.center,
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 20,
+                    ),
+                  )
+                ]
+              : nowPlayingMovieProvider.movies
+                  .map(
+                    (e) => MovieTile(
+                      movies: e,
+                    ),
+                  )
+                  .toList(),
+        ),
+      );
+    }
+
+    Widget listUpComing() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          left: defaultMargin,
+        ),
+        child: Column(
+          children: upComingMovieProvider.movies.isEmpty
+              ? [
+                  Container(
+                    height: 200,
+                    width: 300,
+                    margin: EdgeInsets.only(top: 100),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/error.png'),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Please Check Your Internet Connection',
+                    textAlign: TextAlign.center,
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 20,
+                    ),
+                  )
+                ]
+              : upComingMovieProvider.movies
+                  .map(
+                    (e) => MovieTile(
+                      movies: e,
+                    ),
+                  )
+                  .toList(),
+        ),
+      );
+    }
+
+    Widget listChangedCategory() {
+      switch (categoryMenuProvider.categorySelected) {
+        case 'Popular':
+          return listItemPopular();
+        case 'Now Playing':
+          return listNowPlaying();
+        case 'Up Coming':
+          return listUpComing();
+
+        default:
+          return listItemPopular();
+      }
     }
 
     return Scaffold(
@@ -168,7 +275,7 @@ class HomePage extends StatelessWidget {
           buildSubTitle('Top Rated'),
           buildCarousel(),
           buildCategoryTitle(),
-          listItem(),
+          listChangedCategory(),
         ],
       ),
     );
