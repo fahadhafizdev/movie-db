@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/pages/home/main_page.dart';
 import 'package:moviez_streaming_dark/pages/home/tv_page.dart';
 import 'package:moviez_streaming_dark/pages/splash_page.dart';
 import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/page_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_airingtoday_provider.dart';
 import 'package:moviez_streaming_dark/providers/upcoming_movie_provider.dart';
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
         ChangeNotifierProvider(create: (context) => UpComingMovieProvider()),
         ChangeNotifierProvider(create: (context) => TvAiringTodayProvider()),
+        ChangeNotifierProvider(create: (context) => PageProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashPage(),
           '/home': (context) => HomePage(),
           '/tv': (context) => TvPage(),
+          '/main-page': (context) => MainPage(),
         },
       ),
     );

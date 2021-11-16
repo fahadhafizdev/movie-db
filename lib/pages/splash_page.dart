@@ -35,7 +35,8 @@ class _SplashPageState extends State<SplashPage> {
       await Provider.of<TvAiringTodayProvider>(context, listen: false)
           .getTvAiringToday();
 
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/main-page', (route) => false);
     });
   }
 
