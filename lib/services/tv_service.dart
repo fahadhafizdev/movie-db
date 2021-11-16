@@ -23,4 +23,61 @@ class TvService {
       throw Exception('Data tv gagal didapatkan');
     }
   }
+
+  Future<List<TvModel>> getTvTopRated() async {
+    var url =
+        'https://api.themoviedb.org/3/tv/top_rated?api_key=${key}&language=en-US';
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<TvModel> tv =
+          data.map<TvModel>((item) => TvModel.fromJson(item)).toList();
+
+      return tv;
+    } else {
+      throw Exception('Data tv gagal didapatkan');
+    }
+  }
+
+  Future<List<TvModel>> getTvOnTheAir() async {
+    var url =
+        'https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US';
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<TvModel> tv =
+          data.map<TvModel>((item) => TvModel.fromJson(item)).toList();
+
+      return tv;
+    } else {
+      throw Exception('Data tv gagal didapatkan');
+    }
+  }
+
+  Future<List<TvModel>> getTvPopular() async {
+    var url =
+        'https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US';
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<TvModel> tv =
+          data.map<TvModel>((item) => TvModel.fromJson(item)).toList();
+
+      return tv;
+    } else {
+      throw Exception('Data tv gagal didapatkan');
+    }
+  }
 }

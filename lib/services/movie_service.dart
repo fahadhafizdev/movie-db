@@ -11,7 +11,7 @@ class MovieService {
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
-    print('${response.body}');
+    // print('${response.body}');
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body)['results'];
@@ -32,7 +32,7 @@ class MovieService {
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
-    print('${response.body}');
+    // print('${response.body}');
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body)['results'];
@@ -53,7 +53,7 @@ class MovieService {
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
-    print('${response.body}');
+    // print('${response.body}');
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body)['results'];
@@ -74,7 +74,7 @@ class MovieService {
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
-    print('${response.body}');
+    // print('${response.body}');
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body)['results'];
