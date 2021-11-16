@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
+import 'package:moviez_streaming_dark/widgets/category_menu_widget.dart';
 import 'package:moviez_streaming_dark/widgets/movie_card.dart';
 import 'package:moviez_streaming_dark/widgets/movie_tile.dart';
 import 'package:provider/provider.dart';
@@ -71,6 +72,24 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget buildCategoryTitle() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          left: defaultMargin,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CategoryMenu(
+              name: 'Popular',
+              isActive: true,
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget buildSubTitle(String title) {
       return Container(
         margin: EdgeInsets.only(
@@ -115,7 +134,7 @@ class HomePage extends StatelessWidget {
           buildTitle(),
           buildSubTitle('Top Rated'),
           buildCarousel(),
-          buildSubTitle('Popular'),
+          buildCategoryTitle(),
           listItem(),
         ],
       ),
