@@ -25,6 +25,7 @@ class _SplashPageState extends State<SplashPage> {
           .getTopMovieList();
       await Provider.of<PopularMovieProvider>(context, listen: false)
           .getPopularMovieList();
+
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     });
   }

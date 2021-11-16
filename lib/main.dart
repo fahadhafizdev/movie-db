@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/pages/splash_page.dart';
+import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
 import 'pages/home/home_page.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => MovieProvider()),
         ChangeNotifierProvider(create: (context) => PopularMovieProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryMenuProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

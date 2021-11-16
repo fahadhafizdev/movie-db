@@ -65,50 +65,62 @@ class HomePage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children:
-                movieProvider.movies.map((e) => MovieCard(movies: e)).toList(),
+            children: movieProvider.movies.isEmpty
+                ? [SizedBox()]
+                : movieProvider.movies
+                    .map((e) => MovieCard(movies: e))
+                    .toList(),
           ),
         ),
       );
     }
 
     Widget buildCategoryTitle() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 30,
-          left: defaultMargin,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CategoryMenu(
-              name: 'Popular',
-              isActive: true,
-            ),
-          ],
-        ),
-      );
+      return movieProvider.movies.isEmpty
+          ? SizedBox()
+          : Container(
+              margin: EdgeInsets.only(
+                top: 30,
+                left: defaultMargin,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CategoryMenu(
+                    name: 'Popular',
+                  ),
+                  CategoryMenu(
+                    name: 'Now Playing',
+                  ),
+                  CategoryMenu(
+                    name: 'Up Coming',
+                  ),
+                ],
+              ),
+            );
     }
 
     Widget buildSubTitle(String title) {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 30,
-          left: defaultMargin,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: whiteTextStyle.copyWith(
-                fontSize: 20,
-                fontWeight: black,
+      return movieProvider.movies.isEmpty
+          ? SizedBox()
+          : Container(
+              margin: EdgeInsets.only(
+                top: 30,
+                left: defaultMargin,
               ),
-            ),
-          ],
-        ),
-      );
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 20,
+                      fontWeight: black,
+                    ),
+                  ),
+                ],
+              ),
+            );
     }
 
     Widget listItem() {
@@ -118,11 +130,32 @@ class HomePage extends StatelessWidget {
           left: defaultMargin,
         ),
         child: Column(
-          children: popularMovieProvider.movies
-              .map((e) => MovieTile(
-                    movies: e,
-                  ))
-              .toList(),
+          children: popularMovieProvider.movies.isEmpty
+              ? [
+                  Container(
+                    height: 200,
+                    width: 300,
+                    margin: EdgeInsets.only(top: 100),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/error.png'),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Please Check Your Internet Connection',
+                    textAlign: TextAlign.center,
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 20,
+                    ),
+                  )
+                ]
+              : popularMovieProvider.movies
+                  .map((e) => MovieTile(
+                        movies: e,
+                      ))
+                  .toList(),
         ),
       );
     }
