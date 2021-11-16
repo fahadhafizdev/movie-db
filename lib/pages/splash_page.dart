@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/upcoming_movie_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,10 @@ class _SplashPageState extends State<SplashPage> {
           .getTopMovieList();
       await Provider.of<PopularMovieProvider>(context, listen: false)
           .getPopularMovieList();
+      await Provider.of<UpComingMovieProvider>(context, listen: false)
+          .getUpComingMovieList();
+      await Provider.of<NowPlayingMovieProvider>(context, listen: false)
+          .getUpComingMovieList();
 
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     });
