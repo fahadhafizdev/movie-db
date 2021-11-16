@@ -67,26 +67,24 @@ class TvPage extends StatelessWidget {
     }
 
     Widget buildSubTitle(String title) {
-      return tvAiringTodayProvider.tv.isEmpty
-          ? SizedBox()
-          : Container(
-              margin: EdgeInsets.only(
-                top: 30,
-                left: defaultMargin,
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          left: defaultMargin,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: whiteTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: black,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: whiteTextStyle.copyWith(
-                      fontSize: 20,
-                      fontWeight: black,
-                    ),
-                  ),
-                ],
-              ),
-            );
+            ),
+          ],
+        ),
+      );
     }
 
     Widget buildCarouselTopRated() {
@@ -95,7 +93,7 @@ class TvPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tvTopRatedProvider.tv.isEmpty
+            children: tvTopRatedProvider.tv == null
                 ? [SizedBox()]
                 : tvTopRatedProvider.tv.map((item) {
                     return item.backDropPath != null
@@ -115,14 +113,17 @@ class TvPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tvPopularProvider.tv.isEmpty
+            children: tvPopularProvider.tv == null
                 ? [
-                    Text(
-                      'Please Check Your Internet Connection',
-                      textAlign: TextAlign.center,
-                      style: whiteTextStyle.copyWith(
-                        fontWeight: medium,
-                        fontSize: 20,
+                    Container(
+                      margin: EdgeInsets.only(left: defaultMargin),
+                      child: Text(
+                        'Please Check Your Internet Connection',
+                        textAlign: TextAlign.center,
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: medium,
+                          fontSize: 15,
+                        ),
                       ),
                     )
                   ]
@@ -146,14 +147,17 @@ class TvPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tvOnTheAirProvider.tv.isEmpty
+            children: tvOnTheAirProvider.tv == null
                 ? [
-                    Text(
-                      'Please Check Your Internet Connection',
-                      textAlign: TextAlign.center,
-                      style: whiteTextStyle.copyWith(
-                        fontWeight: medium,
-                        fontSize: 20,
+                    Container(
+                      margin: EdgeInsets.only(left: defaultMargin),
+                      child: Text(
+                        'Please Check Your Internet Connection',
+                        textAlign: TextAlign.center,
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: medium,
+                          fontSize: 15,
+                        ),
                       ),
                     )
                   ]
@@ -177,14 +181,17 @@ class TvPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tvAiringTodayProvider.tv.isEmpty
+            children: tvAiringTodayProvider.tv == null
                 ? [
-                    Text(
-                      'Please Check Your Internet Connection',
-                      textAlign: TextAlign.center,
-                      style: whiteTextStyle.copyWith(
-                        fontWeight: medium,
-                        fontSize: 20,
+                    Container(
+                      margin: EdgeInsets.only(left: defaultMargin),
+                      child: Text(
+                        'Please Check Your Internet Connection',
+                        textAlign: TextAlign.center,
+                        style: whiteTextStyle.copyWith(
+                          fontWeight: medium,
+                          fontSize: 15,
+                        ),
                       ),
                     )
                   ]

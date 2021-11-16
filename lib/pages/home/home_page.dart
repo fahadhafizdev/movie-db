@@ -276,6 +276,7 @@ class _HomePageState extends State<HomePage> {
           buildCarousel(),
           buildCategoryTitle(),
           listChangedCategory(),
+          SizedBox(height: 100),
         ],
       ),
     );
