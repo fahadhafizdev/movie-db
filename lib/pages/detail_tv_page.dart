@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:moviez_streaming_dark/models/movie_model.dart';
-import 'package:moviez_streaming_dark/providers/favorite_movie_provider.dart';
+import 'package:moviez_streaming_dark/models/tv_model.dart';
 import 'package:moviez_streaming_dark/theme.dart';
-import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
-class DetailMoviePage extends StatefulWidget {
-  MovieModel movie;
-  DetailMoviePage({Key key, this.movie}) : super(key: key);
-
+class DetailTvPage extends StatefulWidget {
+  TvModel tv;
+  DetailTvPage(this.tv);
   @override
-  State<DetailMoviePage> createState() => _DetailMoviePageState();
+  State<DetailTvPage> createState() => _DetailTvPageState();
 }
 
-class _DetailMoviePageState extends State<DetailMoviePage> {
-  // bool isFavorite = false;
+class _DetailTvPageState extends State<DetailTvPage> {
   @override
   Widget build(BuildContext context) {
-    int rating = (widget.movie.voteAverage).round();
-    FavoriteMovieProvider favoriteMovieProvider =
-        Provider.of<FavoriteMovieProvider>(context);
-    bool isFavorite = favoriteMovieProvider.isWhistList(widget.movie);
+    int rating = (widget.tv.voteAverage).round();
+    // FavoriteMovieProvider favoriteMovieProvider =
+    //     Provider.of<FavoriteMovieProvider>(context);
+    // bool isFavorite = favoriteMovieProvider.isWhistList(widget.movie);
     return Scaffold(
       backgroundColor: Color(0xff19182C),
       body: ListView(
@@ -32,11 +27,11 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: widget.movie.backDropPath == null
+                    image: widget.tv.backDropPath == null
                         ? AssetImage('assets/image_movie1.png')
                         : NetworkImage(
                             'https://www.themoviedb.org/t/p/w533_and_h300_bestv2' +
-                                widget.movie.backDropPath,
+                                widget.tv.backDropPath,
                           ),
                   ),
                 ),
@@ -84,7 +79,7 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: Text(
-                    widget.movie.originalTitle,
+                    widget.tv.name,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.center,
                     style: whiteTextStyle.copyWith(
@@ -95,7 +90,7 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                 ),
                 SizedBox(height: 6),
                 Text(
-                  widget.movie.releaseDate,
+                  widget.tv.firstAirDate,
                   style: greyTextStyle.copyWith(
                       fontWeight: medium, color: Colors.white),
                 ),
@@ -166,24 +161,14 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    isFavorite =
-                        favoriteMovieProvider.isWhistList(widget.movie);
-
-                    favoriteMovieProvider.setMovieList(widget.movie);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         duration: Duration(seconds: 1),
-                        content: !isFavorite
-                            ? Text(
-                                'Has been added to the Whitelist',
-                                textAlign: TextAlign.center,
-                              )
-                            : Text(
-                                'Has been removed from the Whitelist',
-                                textAlign: TextAlign.center,
-                              ),
-                        backgroundColor:
-                            !isFavorite ? Color(0xff38ABBE) : Colors.red,
+                        content: Text(
+                          'Wishlist TV is Coming Soon',
+                          textAlign: TextAlign.center,
+                        ),
+                        backgroundColor: Colors.red,
                       ),
                     );
                   },
@@ -192,10 +177,8 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                     height: 50,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: isFavorite
-                            ? AssetImage('assets/icon_love_round_actived.png')
-                            : AssetImage(
-                                'assets/icon_love_round_nonactived.png'),
+                        image:
+                            AssetImage('assets/icon_love_round_nonactived.png'),
                       ),
                     ),
                   ),
@@ -209,7 +192,7 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 24),
             child: Text(
-              widget.movie.overview,
+              widget.tv.overview,
               textAlign: TextAlign.center,
               style: whiteTextStyle.copyWith(
                 fontSize: 16,

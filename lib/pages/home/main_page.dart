@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/pages/home/tv_page.dart';
+import 'package:moviez_streaming_dark/pages/home/wishlist_page.dart';
 import 'package:moviez_streaming_dark/providers/page_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
 import 'package:moviez_streaming_dark/widgets/bottom_navbar_item_widget.dart';
@@ -17,6 +18,8 @@ class MainPage extends StatelessWidget {
         case 0:
           return HomePage();
         case 1:
+          return WishListPage();
+        case 2:
           return TvPage();
 
         default:
@@ -41,7 +44,7 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               BottomNavbarItem(
-                imageUrl: 'assets/icon_home.png',
+                imageUrl: 'assets/video.png',
                 index: 0,
               ),
               BottomNavbarItem(
@@ -49,7 +52,7 @@ class MainPage extends StatelessWidget {
                 index: 1,
               ),
               BottomNavbarItem(
-                imageUrl: 'assets/icon_mail.png',
+                imageUrl: 'assets/tv.png',
                 index: 2,
               ),
             ],
