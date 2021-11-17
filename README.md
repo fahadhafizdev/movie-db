@@ -1,6 +1,6 @@
 # moviezDb
 
-projek movie app yang data nya di ambil dari reds API moviedb
+projek movie app yang data nya di ambil dari API moviedb
 
 ## Getting Started
 Tutorial Cara Penginstallan package MovieDb app
