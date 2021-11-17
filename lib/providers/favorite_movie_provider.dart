@@ -11,6 +11,15 @@ class FavoriteMovieProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  setMovieList(MovieModel movieList) {
+    if (isWhistList(movieList)) {
+      _movieList.removeWhere((element) => element.id == movieList.id);
+    } else {
+      _movieList.add(movieList);
+    }
+    notifyListeners();
+  }
+
   isWhistList(MovieModel movieList) {
     if (_movieList.indexWhere((element) => element.id == movieList.id) == -1) {
       return false;

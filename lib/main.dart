@@ -4,6 +4,7 @@ import 'package:moviez_streaming_dark/pages/home/tv_page.dart';
 import 'package:moviez_streaming_dark/pages/splash_logo_page.dart';
 import 'package:moviez_streaming_dark/pages/splash_page.dart';
 import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
+import 'package:moviez_streaming_dark/providers/favorite_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/page_provider.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TvTopRatedProvider()),
         ChangeNotifierProvider(create: (context) => PageProvider()),
         ChangeNotifierProvider(create: (context) => PeoplePopularProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteMovieProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

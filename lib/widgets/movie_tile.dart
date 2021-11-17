@@ -53,6 +53,7 @@ class MovieTile extends StatelessWidget {
                       fontWeight: bold,
                     ),
                     overflow: TextOverflow.clip,
+                    maxLines: 2,
                   ),
                   SizedBox(
                     height: 4,

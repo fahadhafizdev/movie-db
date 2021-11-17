@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/models/movie_model.dart';
+import 'package:moviez_streaming_dark/providers/favorite_movie_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class DetailMoviePage extends StatefulWidget {
@@ -12,11 +14,13 @@ class DetailMoviePage extends StatefulWidget {
 }
 
 class _DetailMoviePageState extends State<DetailMoviePage> {
-  bool isFavorite = false;
+  // bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     int rating = (widget.movie.voteAverage).round();
-
+    FavoriteMovieProvider favoriteMovieProvider =
+        Provider.of<FavoriteMovieProvider>(context);
+    bool isFavorite = favoriteMovieProvider.isWhistList(widget.movie);
     return Scaffold(
       backgroundColor: Color(0xff19182C),
       body: ListView(
@@ -135,8 +139,9 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
-                        'Pemutar vidio belum tersedia',
-                        style: whiteTextStyle.copyWith(fontWeight: semiBold),
+                        'video player is coming soon',
+                        textAlign: TextAlign.center,
+                        style: whiteTextStyle.copyWith(fontWeight: regular),
                       ),
                       backgroundColor: Color(0xff38ABBE),
                       duration: Duration(seconds: 1),
@@ -159,10 +164,26 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                      print(isFavorite);
-                    });
+                    isFavorite =
+                        favoriteMovieProvider.isWhistList(widget.movie);
+
+                    favoriteMovieProvider.setMovieList(widget.movie);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: !isFavorite
+                            ? Text(
+                                'Has been added to the Whitelist',
+                                textAlign: TextAlign.center,
+                              )
+                            : Text(
+                                'Has been removed from the Whitelist',
+                                textAlign: TextAlign.center,
+                              ),
+                        backgroundColor:
+                            !isFavorite ? Color(0xff38ABBE) : Colors.red,
+                      ),
+                    );
                   },
                   child: Container(
                     width: 50,
