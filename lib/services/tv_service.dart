@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:moviez_streaming_dark/models/people_model.dart';
 import 'package:moviez_streaming_dark/models/tv_model.dart';
 
 class TvService {
@@ -78,6 +79,25 @@ class TvService {
       return tv;
     } else {
       throw Exception('Data tv gagal didapatkan');
+    }
+  }
+
+  Future<List<PeopleModel>> getPeoplePopular() async {
+    var url =
+        'https://api.themoviedb.org/3/person/popular?api_key=${key}&language=en-US';
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<PeopleModel> people =
+          data.map<PeopleModel>((item) => PeopleModel.fromJson(item)).toList();
+
+      return people;
+    } else {
+      throw Exception('Data people gagal didapatkan');
     }
   }
 }
