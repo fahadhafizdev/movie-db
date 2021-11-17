@@ -5,6 +5,7 @@ import 'package:moviez_streaming_dark/providers/tv_popular_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_toprated_provider.dart';
 import 'package:moviez_streaming_dark/theme.dart';
 import 'package:moviez_streaming_dark/widgets/movie_tile.dart';
+import 'package:moviez_streaming_dark/widgets/people_tile.dart';
 import 'package:moviez_streaming_dark/widgets/tv_card.dart';
 import 'package:moviez_streaming_dark/widgets/tv_tile.dart';
 import 'package:provider/provider.dart';
@@ -207,6 +208,25 @@ class TvPage extends StatelessWidget {
       );
     }
 
+    Widget buildPopularPeople() {
+      return Container(
+        margin: EdgeInsets.only(left: 30),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              PeopleTile(),
+              PeopleTile(),
+              PeopleTile(),
+              PeopleTile(),
+              PeopleTile(),
+              PeopleTile(),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: ListView(
@@ -214,6 +234,8 @@ class TvPage extends StatelessWidget {
           buildTitle(),
           buildSubTitle('Top Rated TV Shows'),
           buildCarouselTopRated(),
+          buildSubTitle('Popular People'),
+          buildPopularPeople(),
           buildSubTitle('Popular TV'),
           listItemPopular(),
           buildSubTitle('On The Air TV'),
