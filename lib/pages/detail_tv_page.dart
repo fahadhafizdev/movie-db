@@ -163,9 +163,9 @@ class _DetailTvPageState extends State<DetailTvPage> {
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        duration: Duration(seconds: 1),
+                        duration: Duration(seconds: 3),
                         content: Text(
-                          'Wishlist TV is Coming Soon',
+                          'Untuk sementara wishlist hanya bisa di halaman Movie',
                           textAlign: TextAlign.center,
                         ),
                         backgroundColor: Colors.red,
