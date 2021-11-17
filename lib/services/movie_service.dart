@@ -49,7 +49,7 @@ class MovieService {
 
   Future<List<MovieModel>> getUpComingMovieList() async {
     var url =
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US";
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=2";
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');
@@ -70,7 +70,7 @@ class MovieService {
 
   Future<List<MovieModel>> getNowPlayingMovieList() async {
     var url =
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US";
+        "https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=3";
     var response = await http.get(Uri.parse(url));
 
     print('${response.statusCode}');

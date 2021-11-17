@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/providers/people_popular_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_airingtoday_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_ontheair_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_popular_provider.dart';
@@ -23,6 +24,8 @@ class TvPage extends StatelessWidget {
         Provider.of<TvPopularProvider>(context);
     TvOnTheAirProvider tvOnTheAirProvider =
         Provider.of<TvOnTheAirProvider>(context);
+    PeoplePopularProvider peoplePopularProvider =
+        Provider.of<PeoplePopularProvider>(context);
 
     Widget buildTitle() {
       return Container(
@@ -90,7 +93,7 @@ class TvPage extends StatelessWidget {
 
     Widget buildCarouselTopRated() {
       return Container(
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: 30, right: defaultMargin),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -106,6 +109,20 @@ class TvPage extends StatelessWidget {
       );
     }
 
+    Widget handleErrorConnection() {
+      return Container(
+        margin: EdgeInsets.only(left: defaultMargin),
+        child: Text(
+          'Please Check Your Internet Connection',
+          textAlign: TextAlign.center,
+          style: whiteTextStyle.copyWith(
+            fontWeight: medium,
+            fontSize: 15,
+          ),
+        ),
+      );
+    }
+
     Widget listItemPopular() {
       return Container(
         margin: EdgeInsets.only(
@@ -115,19 +132,7 @@ class TvPage extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: tvPopularProvider.tv == null
-                ? [
-                    Container(
-                      margin: EdgeInsets.only(left: defaultMargin),
-                      child: Text(
-                        'Please Check Your Internet Connection',
-                        textAlign: TextAlign.center,
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: medium,
-                          fontSize: 15,
-                        ),
-                      ),
-                    )
-                  ]
+                ? [handleErrorConnection()]
                 : tvPopularProvider.tv
                     .map(
                       (e) => TvTile(
@@ -149,19 +154,7 @@ class TvPage extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: tvOnTheAirProvider.tv == null
-                ? [
-                    Container(
-                      margin: EdgeInsets.only(left: defaultMargin),
-                      child: Text(
-                        'Please Check Your Internet Connection',
-                        textAlign: TextAlign.center,
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: medium,
-                          fontSize: 15,
-                        ),
-                      ),
-                    )
-                  ]
+                ? [handleErrorConnection()]
                 : tvOnTheAirProvider.tv
                     .map(
                       (e) => TvTile(
@@ -183,19 +176,7 @@ class TvPage extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: tvAiringTodayProvider.tv == null
-                ? [
-                    Container(
-                      margin: EdgeInsets.only(left: defaultMargin),
-                      child: Text(
-                        'Please Check Your Internet Connection',
-                        textAlign: TextAlign.center,
-                        style: whiteTextStyle.copyWith(
-                          fontWeight: medium,
-                          fontSize: 15,
-                        ),
-                      ),
-                    )
-                  ]
+                ? [handleErrorConnection()]
                 : tvAiringTodayProvider.tv
                     .map(
                       (e) => TvTile(
@@ -214,14 +195,13 @@ class TvPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              PeopleTile(),
-              PeopleTile(),
-              PeopleTile(),
-              PeopleTile(),
-              PeopleTile(),
-              PeopleTile(),
-            ],
+            children: peoplePopularProvider.people == null
+                ? [handleErrorConnection()]
+                : peoplePopularProvider.people
+                    .map((item) => PeopleTile(
+                          people: item,
+                        ))
+                    .toList(),
           ),
         ),
       );

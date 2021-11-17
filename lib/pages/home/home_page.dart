@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
 
     Widget buildCarousel() {
       return Container(
-        margin: EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: 30, right: defaultMargin),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

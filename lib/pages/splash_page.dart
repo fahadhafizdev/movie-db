@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
+import 'package:moviez_streaming_dark/providers/people_popular_provider.dart';
 import 'package:moviez_streaming_dark/providers/popular_movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_airingtoday_provider.dart';
 import 'package:moviez_streaming_dark/providers/tv_ontheair_provider.dart';
@@ -43,6 +44,8 @@ class _SplashPageState extends State<SplashPage> {
           .getTvOnTheAir();
       await Provider.of<TvPopularProvider>(context, listen: false)
           .getTvPopular();
+      await Provider.of<PeoplePopularProvider>(context, listen: false)
+          .getPeoplePopular();
 
       Navigator.pushNamedAndRemoveUntil(
           context, '/main-page', (route) => false);
