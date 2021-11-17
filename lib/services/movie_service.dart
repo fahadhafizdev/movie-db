@@ -88,4 +88,25 @@ class MovieService {
       throw Exception('data movie gagal');
     }
   }
+
+  Future<List<MovieModel>> getSearchMovie(String input) async {
+    var url =
+        "https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${input}&include_adult=false";
+    var response = await http.get(Uri.parse(url));
+
+    print('${response.statusCode}');
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body)['results'];
+      List<MovieModel> movie = data
+          .map<MovieModel>(
+            (item) => MovieModel.fromJson(item),
+          )
+          .toList();
+      return movie;
+    } else {
+      throw Exception('data movie gagal');
+    }
+  }
 }

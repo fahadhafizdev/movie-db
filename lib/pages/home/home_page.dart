@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/pages/movie_search_page.dart';
 import 'package:moviez_streaming_dark/providers/category_menu_provider.dart';
 import 'package:moviez_streaming_dark/providers/movie_provider.dart';
 import 'package:moviez_streaming_dark/providers/nowplaying_movie_provider.dart';
@@ -56,13 +57,23 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Container(
-              width: 55,
-              height: 45,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/button_search.png',
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchMoviePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: 55,
+                height: 45,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/button_search.png',
+                    ),
                   ),
                 ),
               ),

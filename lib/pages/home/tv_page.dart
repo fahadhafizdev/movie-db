@@ -11,6 +11,8 @@ import 'package:moviez_streaming_dark/widgets/tv_card.dart';
 import 'package:moviez_streaming_dark/widgets/tv_tile.dart';
 import 'package:provider/provider.dart';
 
+import '../movie_search_page.dart';
+
 class TvPage extends StatelessWidget {
   const TvPage({Key key}) : super(key: key);
 
@@ -54,13 +56,23 @@ class TvPage extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              width: 55,
-              height: 45,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/button_search.png',
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchMoviePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: 55,
+                height: 45,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/button_search.png',
+                    ),
                   ),
                 ),
               ),

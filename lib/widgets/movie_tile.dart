@@ -35,10 +35,12 @@ class MovieTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(21),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-                        movies.posterPath,
-                  ),
+                  image: movies.posterPath == null
+                      ? AssetImage('assets/image_movie1.png')
+                      : NetworkImage(
+                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
+                              movies.posterPath,
+                        ),
                 ),
               ),
             ),
