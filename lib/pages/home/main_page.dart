@@ -45,8 +45,12 @@ class MainPage extends StatelessWidget {
                 index: 0,
               ),
               BottomNavbarItem(
-                imageUrl: 'assets/icon_mail.png',
+                imageUrl: 'assets/icon_love.png',
                 index: 1,
+              ),
+              BottomNavbarItem(
+                imageUrl: 'assets/icon_mail.png',
+                index: 2,
               ),
             ],
           ),
