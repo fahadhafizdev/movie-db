@@ -10,7 +10,7 @@ class PeopleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: defaultMargin, top: 20),
+      margin: EdgeInsets.only(left: defaultMargin, top: 20),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: Image.network(

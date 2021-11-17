@@ -191,7 +191,7 @@ class TvPage extends StatelessWidget {
 
     Widget buildPopularPeople() {
       return Container(
-        margin: EdgeInsets.only(left: 30),
+        margin: EdgeInsets.only(right: defaultMargin),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

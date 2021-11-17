@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:moviez_streaming_dark/models/movie_model.dart';
 import 'package:moviez_streaming_dark/theme.dart';
 
-class DetailMoviePage extends StatelessWidget {
+// ignore: must_be_immutable
+class DetailMoviePage extends StatefulWidget {
+  MovieModel movie;
+  DetailMoviePage({Key key, this.movie}) : super(key: key);
+
+  @override
+  State<DetailMoviePage> createState() => _DetailMoviePageState();
+}
+
+class _DetailMoviePageState extends State<DetailMoviePage> {
+  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
+    int rating = (widget.movie.voteAverage).round();
+
     return Scaffold(
       backgroundColor: Color(0xff19182C),
       body: ListView(
@@ -15,7 +28,10 @@ class DetailMoviePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/image_movie3.png'),
+                    image: NetworkImage(
+                      'https://www.themoviedb.org/t/p/w533_and_h300_bestv2' +
+                          widget.movie.backDropPath,
+                    ),
                   ),
                 ),
               ),
@@ -33,15 +49,20 @@ class DetailMoviePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                width: 30,
-                height: 30,
-                margin: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/button_back.png',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/button_back.png',
+                      ),
                     ),
                   ),
                 ),
@@ -54,15 +75,21 @@ class DetailMoviePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 30),
             child: Column(
               children: [
-                Text(
-                  'The Witcher 2021',
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 30,
-                    fontWeight: semiBold,
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                  child: Text(
+                    widget.movie.originalTitle,
+                    overflow: TextOverflow.clip,
+                    textAlign: TextAlign.center,
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 30,
+                      fontWeight: semiBold,
+                    ),
                   ),
                 ),
+                SizedBox(height: 6),
                 Text(
-                  'Sci-Fiction',
+                  widget.movie.releaseDate,
                   style: greyTextStyle.copyWith(
                       fontWeight: medium, color: Colors.white),
                 ),
@@ -74,35 +101,23 @@ class DetailMoviePage extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.star,
-                      color: kYellowColor,
-                    ),
-                    SizedBox(
-                      width: 6,
+                      color: rating / 2 >= 1 ? kYellowColor : kGreyColor,
                     ),
                     Icon(
                       Icons.star,
-                      color: kYellowColor,
-                    ),
-                    SizedBox(
-                      width: 6,
+                      color: rating / 2 >= 2 ? kYellowColor : kGreyColor,
                     ),
                     Icon(
                       Icons.star,
-                      color: kYellowColor,
-                    ),
-                    SizedBox(
-                      width: 6,
+                      color: rating / 2 >= 3 ? kYellowColor : kGreyColor,
                     ),
                     Icon(
                       Icons.star,
-                      color: kYellowColor,
-                    ),
-                    SizedBox(
-                      width: 6,
+                      color: rating / 2 >= 4 ? kYellowColor : kGreyColor,
                     ),
                     Icon(
                       Icons.star,
-                      color: kYellowColor.withOpacity(0.3),
+                      color: rating / 2 >= 5 ? kYellowColor : kGreyColor,
                     ),
                   ],
                 ),
@@ -119,8 +134,11 @@ class DetailMoviePage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Pemutar vidio belum tersedia'),
-                      backgroundColor: Colors.green,
+                      content: Text(
+                        'Pemutar vidio belum tersedia',
+                        style: whiteTextStyle.copyWith(fontWeight: semiBold),
+                      ),
+                      backgroundColor: Color(0xff38ABBE),
                       duration: Duration(seconds: 1),
                     ));
                   },
@@ -139,13 +157,22 @@ class DetailMoviePage extends StatelessWidget {
                 SizedBox(
                   width: 15,
                 ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/button_favorite.png',
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                      print(isFavorite);
+                    });
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: isFavorite
+                            ? AssetImage('assets/icon_love_round_actived.png')
+                            : AssetImage(
+                                'assets/icon_love_round_nonactived.png'),
                       ),
                     ),
                   ),
@@ -159,7 +186,7 @@ class DetailMoviePage extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 24),
             child: Text(
-              'dddddddddddddddd dddddddddddddddddddd ddddddddddddddddddddddddddddddddd dddddddddddddddddddddddddddddddd dddddddddddddddddd',
+              widget.movie.overview,
               textAlign: TextAlign.center,
               style: whiteTextStyle.copyWith(
                 fontSize: 16,
